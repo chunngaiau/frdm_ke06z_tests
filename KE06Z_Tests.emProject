@@ -135,7 +135,7 @@
       <file file_name="rainbow_pwm.c" />
     </folder>
   </project>
-  <project Name="Hello_World_UART">
+  <project Name="UART_Hello_World">
     <configuration
       Name="Common"
       Placement="Flash"
