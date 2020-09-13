@@ -1,7 +1,10 @@
-# frdm_ke06z_tests
+# Kinetis Freedom KE06Z Board Tests
+
 Test code for the Kinetis Freedom KE06Z Board.
 
 To run, open the *.em file in Segger Embedded Studio, and open either the blinker.c (for the blinker project) or the rainbow_pwm.c (for the rainbow pwm project).
+
+***
 
 _Using the Segger J-Link OpenSDA booloader:_
 
