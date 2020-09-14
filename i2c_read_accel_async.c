@@ -33,7 +33,7 @@ void initUART();
 void sendString(char toSend[]);
 
 void initI2C();
-void getRegister(uint8_t slaveAddr, uint8_t regAddr, int *dataPtr);
+void getRegister(uint8_t slaveAddr, uint8_t regAddr, uint8_t *dataPtr);
 void setRegister(uint8_t slaveAddr, uint8_t regAddr, uint8_t data);
 
 void initAccel();
@@ -53,7 +53,7 @@ int main() {
   initI2C();
   initUART();
   
-  int whoAmI = 0;
+  uint8_t whoAmI = 0;
   getRegister(ACCEL_I2C_ADDR, REG_WHO_AM_I, &whoAmI);
 
   while (i2cBusy) {
@@ -67,38 +67,72 @@ int main() {
     return 1;
   }
 
-  for (int i = 0; i < 100; i++) {
-    __NOP(); // Wait a bit for i2c to reset
-  }
-
   setRegister(ACCEL_I2C_ADDR, REG_CTRL_1, 0x01);
   
-  int xLSB = 0;
-  int xMSB = 0;
+  uint8_t xLSB = 0;
+  uint8_t xMSB = 0;
+  int xVal;
+
+  uint8_t yLSB = 0;
+  uint8_t yMSB = 0;
+  int yVal;
+
+  uint8_t zLSB = 0;
+  uint8_t zMSB = 0;
+  int zVal;
+
+  char outStr[30];
+
   int loading = 0;
 
-  for (int i = 0; i < 100; i++) {
-    __NOP();
-  }
-
   for (;;) {
-    if (timeout >= TIMEOUT) {
-      timeout = 0;
-      i2cBusy = false;
-    }
-    
-    if (i2cBusy) {
-      timeout++;
-      continue;
-    }
+    if (!i2cBusy) {
+      switch (loading) {
+        case 0:
+          getRegister(ACCEL_I2C_ADDR, REG_OUT_X_LSB, &xLSB);
+          break;
+        case 1:
+          getRegister(ACCEL_I2C_ADDR, REG_OUT_X_MSB, &xMSB);
+          break;
+        case 2:
+          getRegister(ACCEL_I2C_ADDR, REG_OUT_Y_LSB, &yLSB);
+          break;
+        case 3:
+          getRegister(ACCEL_I2C_ADDR, REG_OUT_Y_MSB, &yMSB);
+          break;
+        case 4:
+          getRegister(ACCEL_I2C_ADDR, REG_OUT_Z_LSB, &zLSB);
+          break;
+        case 5:
+          getRegister(ACCEL_I2C_ADDR, REG_OUT_Z_MSB, &zMSB);
+          break;
+      }
+      
+      loading++;
 
-    if (loading == 0) {
-      printf("0x%X\n", ((xMSB << 6) | (xLSB >> 2)));
-      getRegister(ACCEL_I2C_ADDR, REG_OUT_X_LSB, &xLSB);
-      loading = 1;
-    } else if (loading == 1) {
-      getRegister(ACCEL_I2C_ADDR, REG_OUT_X_MSB, &xMSB);
-      loading = 0;
+      if (loading == 6) {
+        loading = 0;
+      }
+    
+      xVal = ((xMSB << 6) | (xLSB >> 2));
+      yVal = ((yMSB << 6) | (yLSB >> 2));
+      zVal = ((zMSB << 6) | (zMSB >> 2));
+
+      if ((xVal >> 13) == 1) {
+        xVal = -(8192 - (xVal & 0x1FFF));
+      }
+
+      if ((yVal >> 13) == 1) {
+        yVal = -(8192 - (yVal & 0x1FFF));
+      }
+
+      if ((zVal >> 13) == 1) {
+        zVal = -(8192 - (zVal & 0x1FFF));
+      }
+
+      printf("%d, %d, %d\n", xVal, yVal, zVal);
+      sprintf(outStr, "%d %d %d\n", xVal, yVal, zVal);
+      sendString(outStr);
     }
   }
 
@@ -157,7 +191,7 @@ void I2C0_IRQHandler() {
   I2C0_S1 |= I2C_S_IICIF_MASK;
 
   if (i2cStep == 0) {
-    printf("Sent RegAddr: %X\n", i2cRegAddr);
+    //printf("Sent RegAddr: 0x%X\n", i2cRegAddr);
     I2C0_D = i2cRegAddr;
     i2cStep++;
     return;
@@ -166,12 +200,12 @@ void I2C0_IRQHandler() {
   if (i2cTXMode) {
     switch (i2cStep) {
       case 1: // Send data
-        printf("Sent Data\n");
+        //printf("Sent Data\n");
         I2C0_D = i2cWriteData;
         i2cStep++;
         return;
       case 2:
-        printf("Reset TX Mode\n");
+        //printf("Reset TX Mode\n");
         I2C0_C1 &= ~(I2C_C1_MST_MASK | I2C_C1_TX_MASK);
         i2cBusy = false;
         i2cStep++;
@@ -180,22 +214,22 @@ void I2C0_IRQHandler() {
   } else {
     switch (i2cStep) {
       case 1: // Send REPEATED START and Slave Addr
-        printf("Sent RSTA\n");
+        //printf("Sent RSTA\n");
         I2C0_C1 |= I2C_C1_RSTA_MASK;
         I2C0_D = (i2cSlaveAddr << 1) | 1;
         i2cStep++;
         return;
       case 2: // Dummy Read
-        printf("Sent SlaveAddr\n");
+        //printf("Sent SlaveAddr\n");
         I2C0_C1 &= ~I2C_C1_TX_MASK;
         I2C0_C1 |= I2C_C1_TXAK_MASK;
         (void) I2C0_D;
         i2cStep++;
         return;
       case 3: // Read and STOP
-        printf("Read and Reset RX Mode\n");
-        *i2cReadDataPtr = I2C0_D;
+        //printf("Read and Reset RX Mode\n");
         I2C0_C1 &= ~I2C_C1_MST_MASK;
+        *i2cReadDataPtr = I2C0_D;
         I2C0_C1 &= ~I2C_C1_TXAK_MASK;
         i2cBusy = false;
         i2cStep++;
@@ -204,12 +238,12 @@ void I2C0_IRQHandler() {
   }
 
   // Reset when i2cStep is too big
-  printf("I2C Reset\n");
+  //printf("I2C Reset\n");
   I2C0_C1 &= ~(I2C_C1_MST_MASK | I2C_C1_TX_MASK | I2C_C1_TXAK_MASK);
   return;
 }
 
-void getRegister(uint8_t slaveAddr, uint8_t regAddr, int *dataPtr) {
+void getRegister(uint8_t slaveAddr, uint8_t regAddr, uint8_t *dataPtr) {
   // Setup globals
   i2cSlaveAddr = slaveAddr;
   i2cRegAddr = regAddr;
@@ -224,6 +258,11 @@ void getRegister(uint8_t slaveAddr, uint8_t regAddr, int *dataPtr) {
 
   // Set step to 0
   i2cStep = 0;
+
+  // Wait a bit before starting
+  for (int i = 0; i < 100; i++) {
+    __NOP();
+  }
 
   // Set transmit mode
   I2C0_C1 |= I2C_C1_TX_MASK;
@@ -253,6 +292,11 @@ void setRegister(uint8_t slaveAddr, uint8_t regAddr, uint8_t data) {
 
   // Set step to 0
   i2cStep = 0;
+
+  // Wait a bit before starting
+  for (int i = 0; i < 100; i++) {
+    __NOP();
+  }
 
   // Set transmit mode
   I2C0_C1 |= I2C_C1_TX_MASK;
