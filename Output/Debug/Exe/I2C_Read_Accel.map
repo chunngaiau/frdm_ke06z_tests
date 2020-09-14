@@ -2463,7 +2463,7 @@ FLASH            0x0000000000000000 0x0000000000020000 xr
 Linker script and memory map
 
                 0x0000000000000000                __do_debug_operation = __do_debug_operation_mempoll
-                0x0000000000000f90                __vfprintf = __vfprintf_int_nwp
+                0x0000000000000fdc                __vfprintf = __vfprintf_int_nwp
                 0x0000000000000000                __vfscanf = __vfscanf_int
                 0x000000001ffff000                __RAM_segment_start__ = 0x1ffff000
                 0x0000000020003000                __RAM_segment_end__ = 0x20003000
@@ -2557,7 +2557,7 @@ Linker script and memory map
                 0x0000000000000001                . = ASSERT (((__init_rodata_start__ == __init_rodata_end__) || ((__init_rodata_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .init_rodata is too large to fit in FLASH memory segment)
                 0x0000000000000744                __text_load_start__ = ALIGN (__init_rodata_end__, 0x4)
 
-.text           0x0000000000000744      0xbb4
+.text           0x0000000000000744      0xc00
                 0x0000000000000744                __text_start__ = .
  *(.text .text.* .glue_7t .glue_7 .gnu.linkonce.t.* .gcc_except_table .ARM.extab* .gnu.linkonce.armextab.*)
  .glue_7        0x0000000000000744        0x0 linker stubs
@@ -2578,59 +2578,62 @@ Linker script and memory map
  .text.printf   0x0000000000000a38       0x32 Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT_SES.o
                 0x0000000000000a38                printf
  *fill*         0x0000000000000a6a        0x2 
- .text.main     0x0000000000000a6c      0x160 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+ .text.main     0x0000000000000a6c       0xe0 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
                 0x0000000000000a6c                main
  .text.UARTInitialize
-                0x0000000000000bcc       0x5c Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
-                0x0000000000000bcc                UARTInitialize
+                0x0000000000000b4c       0x5c Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+                0x0000000000000b4c                UARTInitialize
  .text.sendString
-                0x0000000000000c28       0x48 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
-                0x0000000000000c28                sendString
+                0x0000000000000ba8       0x48 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+                0x0000000000000ba8                sendString
  .text.I2CInitialize
-                0x0000000000000c70       0x3c Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
-                0x0000000000000c70                I2CInitialize
- .text.I2CWait  0x0000000000000cac       0x44 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
-                0x0000000000000cac                I2CWait
+                0x0000000000000bf0       0x3c Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+                0x0000000000000bf0                I2CInitialize
+ .text.I2CWait  0x0000000000000c2c       0x44 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+                0x0000000000000c2c                I2CWait
  .text.writeRegister
-                0x0000000000000cf0       0xa4 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
-                0x0000000000000cf0                writeRegister
+                0x0000000000000c70       0xa4 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+                0x0000000000000c70                writeRegister
  .text.readRegister
-                0x0000000000000d94      0x100 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+                0x0000000000000d14      0x100 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+ .text.readAccel
+                0x0000000000000e14       0xcc Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+                0x0000000000000e14                readAccel
  .text.libc.__uint32_div
-                0x0000000000000e94       0x28 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc_asm.o)
-                0x0000000000000e94                __uint32_div
-                0x0000000000000e94                __aeabi_uidiv
-                0x0000000000000e94                __udivsi3
+                0x0000000000000ee0       0x28 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc_asm.o)
+                0x0000000000000ee0                __uint32_div
+                0x0000000000000ee0                __aeabi_uidiv
+                0x0000000000000ee0                __udivsi3
  .text.libc.__aeabi_uidivmod
-                0x0000000000000ebc       0x2a C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc_asm.o)
-                0x0000000000000ebc                __aeabi_uidivmod
-                0x0000000000000ebc                __int32_udivmod
+                0x0000000000000f08       0x2a C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc_asm.o)
+                0x0000000000000f08                __aeabi_uidivmod
+                0x0000000000000f08                __int32_udivmod
  .text.libc.__putc
-                0x0000000000000ee6       0x3c C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2.o)
-                0x0000000000000ee6                __putc
- *fill*         0x0000000000000f22        0x2 
+                0x0000000000000f32       0x3c C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2.o)
+                0x0000000000000f32                __putc
+ *fill*         0x0000000000000f6e        0x2 
  .text.libc.sprintf
-                0x0000000000000f24       0x28 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2.o)
-                0x0000000000000f24                sprintf
+                0x0000000000000f70       0x28 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2.o)
+                0x0000000000000f70                sprintf
  .text.libc.vsnprintf
-                0x0000000000000f4c       0x1c C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2.o)
-                0x0000000000000f4c                vsnprintf
+                0x0000000000000f98       0x1c C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2.o)
+                0x0000000000000f98                vsnprintf
  .text.libc.memcpy
-                0x0000000000000f68       0x16 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2_asm.o)
-                0x0000000000000f68                __aeabi_memcpy
-                0x0000000000000f68                __aeabi_memcpy4
-                0x0000000000000f68                __aeabi_memcpy8
-                0x0000000000000f68                memcpy
+                0x0000000000000fb4       0x16 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2_asm.o)
+                0x0000000000000fb4                __aeabi_memcpy
+                0x0000000000000fb4                __aeabi_memcpy4
+                0x0000000000000fb4                __aeabi_memcpy8
+                0x0000000000000fb4                memcpy
  .text.libc.strcpy
-                0x0000000000000f7e       0x10 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2_asm.o)
-                0x0000000000000f7e                strcpy
- *fill*         0x0000000000000f8e        0x2 
+                0x0000000000000fca       0x10 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2_asm.o)
+                0x0000000000000fca                strcpy
+ *fill*         0x0000000000000fda        0x2 
  .text.libc.__vfprintf_int_nwp
-                0x0000000000000f90      0x368 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libvfprintf.o)
-                0x0000000000000f90                __vfprintf_int_nwp
-                0x00000000000012f8                __text_end__ = (__text_start__ + SIZEOF (.text))
-                0x0000000000000bb4                __text_size__ = SIZEOF (.text)
-                0x00000000000012f8                __text_load_end__ = __text_end__
+                0x0000000000000fdc      0x368 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libvfprintf.o)
+                0x0000000000000fdc                __vfprintf_int_nwp
+                0x0000000000001344                __text_end__ = (__text_start__ + SIZEOF (.text))
+                0x0000000000000c00                __text_size__ = SIZEOF (.text)
+                0x0000000000001344                __text_load_end__ = __text_end__
 
 .vfp11_veneer   0x0000000100000000        0x0
  .vfp11_veneer  0x0000000100000000        0x0 linker stubs
@@ -2641,73 +2644,73 @@ Linker script and memory map
 .iplt           0x0000000100000000        0x0
  .iplt          0x0000000100000000        0x0 Output/Debug/Obj/I2C_Read_Accel/system_MKE06Z4.o
                 0x0000000000000001                . = ASSERT (((__text_start__ == __text_end__) || ((__text_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .text is too large to fit in FLASH memory segment)
-                0x00000000000012f8                __dtors_load_start__ = ALIGN (__text_end__, 0x4)
+                0x0000000000001344                __dtors_load_start__ = ALIGN (__text_end__, 0x4)
 
-.dtors          0x00000000000012f8        0x0
-                0x00000000000012f8                __dtors_start__ = .
+.dtors          0x0000000000001344        0x0
+                0x0000000000001344                __dtors_start__ = .
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
  *(.fini_array)
  *(SORT_BY_NAME(.fini_array.*))
-                0x00000000000012f8                __dtors_end__ = (__dtors_start__ + SIZEOF (.dtors))
+                0x0000000000001344                __dtors_end__ = (__dtors_start__ + SIZEOF (.dtors))
                 0x0000000000000000                __dtors_size__ = SIZEOF (.dtors)
-                0x00000000000012f8                __dtors_load_end__ = __dtors_end__
+                0x0000000000001344                __dtors_load_end__ = __dtors_end__
                 0x0000000000000001                . = ASSERT (((__dtors_start__ == __dtors_end__) || ((__dtors_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .dtors is too large to fit in FLASH memory segment)
-                0x00000000000012f8                __ctors_load_start__ = ALIGN (__dtors_end__, 0x4)
+                0x0000000000001344                __ctors_load_start__ = ALIGN (__dtors_end__, 0x4)
 
-.ctors          0x00000000000012f8        0x4
-                0x00000000000012f8                __ctors_start__ = .
+.ctors          0x0000000000001344        0x4
+                0x0000000000001344                __ctors_start__ = .
  *(SORT_BY_NAME(.ctors.*))
  *(.ctors)
  *(.init_array)
- .init_array    0x00000000000012f8        0x4 Output/Debug/Obj/I2C_Read_Accel/Kinetis_KE_Startup.o
+ .init_array    0x0000000000001344        0x4 Output/Debug/Obj/I2C_Read_Accel/Kinetis_KE_Startup.o
  *(SORT_BY_NAME(.init_array.*))
-                0x00000000000012fc                __ctors_end__ = (__ctors_start__ + SIZEOF (.ctors))
+                0x0000000000001348                __ctors_end__ = (__ctors_start__ + SIZEOF (.ctors))
                 0x0000000000000004                __ctors_size__ = SIZEOF (.ctors)
-                0x00000000000012fc                __ctors_load_end__ = __ctors_end__
+                0x0000000000001348                __ctors_load_end__ = __ctors_end__
                 0x0000000000000001                . = ASSERT (((__ctors_start__ == __ctors_end__) || ((__ctors_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .ctors is too large to fit in FLASH memory segment)
-                0x00000000000012fc                __rodata_load_start__ = ALIGN (__ctors_end__, 0x4)
+                0x0000000000001348                __rodata_load_start__ = ALIGN (__ctors_end__, 0x4)
 
-.rodata         0x00000000000012fc      0x30c
-                0x00000000000012fc                __rodata_start__ = .
+.rodata         0x0000000000001348      0x300
+                0x0000000000001348                __rodata_start__ = .
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x00000000000012fc       0x17 Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT.o
- *fill*         0x0000000000001313        0x1 
- .rodata        0x0000000000001314       0x7c Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+ .rodata        0x0000000000001348       0x17 Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT.o
+ *fill*         0x000000000000135f        0x1 
+ .rodata        0x0000000000001360       0x70 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
  .rodata.libc.__RAL_hex_lc
-                0x0000000000001390       0x10 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2.o)
-                0x0000000000001390                __RAL_hex_lc
+                0x00000000000013d0       0x10 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2.o)
+                0x00000000000013d0                __RAL_hex_lc
  .rodata.libc.__RAL_hex_uc
-                0x00000000000013a0       0x10 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2.o)
-                0x00000000000013a0                __RAL_hex_uc
+                0x00000000000013e0       0x10 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libc2.o)
+                0x00000000000013e0                __RAL_hex_uc
  .rodata.libc.__vfprintf_int_nwp
-                0x00000000000013b0      0x258 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libvfprintf.o)
-                0x0000000000001608                __rodata_end__ = (__rodata_start__ + SIZEOF (.rodata))
-                0x000000000000030c                __rodata_size__ = SIZEOF (.rodata)
-                0x0000000000001608                __rodata_load_end__ = __rodata_end__
+                0x00000000000013f0      0x258 C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 5.10a/lib/libc_v6m_t_le_eabi.a(libvfprintf.o)
+                0x0000000000001648                __rodata_end__ = (__rodata_start__ + SIZEOF (.rodata))
+                0x0000000000000300                __rodata_size__ = SIZEOF (.rodata)
+                0x0000000000001648                __rodata_load_end__ = __rodata_end__
 
 .rel.dyn        0x0000000000000000        0x0
  .rel.iplt      0x0000000000000000        0x0 Output/Debug/Obj/I2C_Read_Accel/system_MKE06Z4.o
                 0x0000000000000001                . = ASSERT (((__rodata_start__ == __rodata_end__) || ((__rodata_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .rodata is too large to fit in FLASH memory segment)
-                0x0000000000001608                __ARM.exidx_load_start__ = ALIGN (__rodata_end__, 0x4)
+                0x0000000000001648                __ARM.exidx_load_start__ = ALIGN (__rodata_end__, 0x4)
 
-.ARM.exidx      0x0000000000001608        0x0
-                0x0000000000001608                __ARM.exidx_start__ = .
-                0x0000000000001608                __exidx_start = __ARM.exidx_start__
+.ARM.exidx      0x0000000000001648        0x0
+                0x0000000000001648                __ARM.exidx_start__ = .
+                0x0000000000001648                __exidx_start = __ARM.exidx_start__
  *(.ARM.exidx .ARM.exidx.*)
-                0x0000000000001608                __ARM.exidx_end__ = (__ARM.exidx_start__ + SIZEOF (.ARM.exidx))
+                0x0000000000001648                __ARM.exidx_end__ = (__ARM.exidx_start__ + SIZEOF (.ARM.exidx))
                 0x0000000000000000                __ARM.exidx_size__ = SIZEOF (.ARM.exidx)
-                0x0000000000001608                __exidx_end = __ARM.exidx_end__
-                0x0000000000001608                __ARM.exidx_load_end__ = __ARM.exidx_end__
+                0x0000000000001648                __exidx_end = __ARM.exidx_end__
+                0x0000000000001648                __ARM.exidx_load_end__ = __ARM.exidx_end__
                 0x0000000000000001                . = ASSERT (((__ARM.exidx_start__ == __ARM.exidx_end__) || ((__ARM.exidx_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .ARM.exidx is too large to fit in FLASH memory segment)
-                0x0000000000001608                __fast_load_start__ = ALIGN (__ARM.exidx_end__, 0x4)
+                0x0000000000001648                __fast_load_start__ = ALIGN (__ARM.exidx_end__, 0x4)
 
-.fast           0x000000001ffff000        0x0 load address 0x0000000000001608
+.fast           0x000000001ffff000        0x0 load address 0x0000000000001648
                 0x000000001ffff000                __fast_start__ = .
  *(.fast .fast.*)
                 0x000000001ffff000                __fast_end__ = (__fast_start__ + SIZEOF (.fast))
                 0x0000000000000000                __fast_size__ = SIZEOF (.fast)
-                0x0000000000001608                __fast_load_end__ = (__fast_load_start__ + SIZEOF (.fast))
+                0x0000000000001648                __fast_load_end__ = (__fast_load_start__ + SIZEOF (.fast))
                 0x0000000000000001                . = ASSERT (((__fast_load_start__ == __fast_load_end__) || ((__fast_load_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .fast is too large to fit in FLASH memory segment)
 
 .fast_run       0x000000001ffff000        0x0
@@ -2717,9 +2720,9 @@ Linker script and memory map
                 0x0000000000000000                __fast_run_size__ = SIZEOF (.fast_run)
                 0x000000001ffff000                __fast_run_load_end__ = __fast_run_end__
                 0x0000000000000001                . = ASSERT (((__fast_run_start__ == __fast_run_end__) || ((__fast_run_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .fast_run is too large to fit in RAM memory segment)
-                0x0000000000001608                __data_load_start__ = ALIGN ((__fast_load_start__ + SIZEOF (.fast)), 0x4)
+                0x0000000000001648                __data_load_start__ = ALIGN ((__fast_load_start__ + SIZEOF (.fast)), 0x4)
 
-.data           0x000000001ffff000        0x4 load address 0x0000000000001608
+.data           0x000000001ffff000        0x4 load address 0x0000000000001648
                 0x000000001ffff000                __data_start__ = .
  *(.data .data.* .gnu.linkonce.d.*)
  .data.SystemCoreClock
@@ -2727,13 +2730,13 @@ Linker script and memory map
                 0x000000001ffff000                SystemCoreClock
                 0x000000001ffff004                __data_end__ = (__data_start__ + SIZEOF (.data))
                 0x0000000000000004                __data_size__ = SIZEOF (.data)
-                0x000000000000160c                __data_load_end__ = (__data_load_start__ + SIZEOF (.data))
+                0x000000000000164c                __data_load_end__ = (__data_load_start__ + SIZEOF (.data))
 
 .igot.plt       0x0000000100000000        0x0
  .igot.plt      0x0000000100000000        0x0 Output/Debug/Obj/I2C_Read_Accel/system_MKE06Z4.o
                 0x0000000000000001                . = ASSERT (((__data_load_start__ == __data_load_end__) || ((__data_load_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .data is too large to fit in FLASH memory segment)
 
-.data_run       0x000000001ffff000        0x4 load address 0x0000000000001608
+.data_run       0x000000001ffff000        0x4 load address 0x0000000000001648
                 0x000000001ffff000                __data_run_start__ = .
                 0x000000001ffff004                . = MAX ((__data_run_start__ + SIZEOF (.data)), .)
  *fill*         0x000000001ffff000        0x4 
@@ -2750,16 +2753,16 @@ Linker script and memory map
                 0x0000000000000000                __data2_run_size__ = SIZEOF (.data2_run)
                 0x000000001ffff004                __data2_run_load_end__ = __data2_run_end__
                 0x0000000000000001                . = ASSERT (((__data2_run_start__ == __data2_run_end__) || ((__data2_run_end__ - __RAM_segment_start__) <= __RAM_segment_size__)), error: .data2_run is too large to fit in RAM memory segment)
-                0x000000000000160c                __tdata_load_start__ = ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4)
+                0x000000000000164c                __tdata_load_start__ = ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4)
 
-.tdata          0x000000001ffff004        0x0 load address 0x000000000000160c
+.tdata          0x000000001ffff004        0x0 load address 0x000000000000164c
                 0x000000001ffff004                __tdata_start__ = .
  *(.tdata .tdata.*)
                 0x000000001ffff004                __tdata_end__ = (__tdata_start__ + SIZEOF (.tdata))
                 0x0000000000000000                __tdata_size__ = SIZEOF (.tdata)
-                0x000000000000160c                __tdata_load_end__ = (__tdata_load_start__ + SIZEOF (.tdata))
-                0x000000000000160c                __FLASH_segment_used_end__ = (ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4) + SIZEOF (.tdata))
-                0x000000000000160c                __FLASH_segment_used_size__ = (__FLASH_segment_used_end__ - __FLASH_segment_start__)
+                0x000000000000164c                __tdata_load_end__ = (__tdata_load_start__ + SIZEOF (.tdata))
+                0x000000000000164c                __FLASH_segment_used_end__ = (ALIGN ((__data_load_start__ + SIZEOF (.data)), 0x4) + SIZEOF (.tdata))
+                0x000000000000164c                __FLASH_segment_used_size__ = (__FLASH_segment_used_end__ - __FLASH_segment_start__)
                 0x0000000000000001                . = ASSERT (((__tdata_load_start__ == __tdata_load_end__) || ((__tdata_load_end__ - __FLASH_segment_start__) <= __FLASH_segment_size__)), error: .tdata is too large to fit in FLASH memory segment)
 
 .tdata_run      0x000000001ffff004        0x0
@@ -2866,32 +2869,32 @@ END GROUP
 OUTPUT(Output/Debug/Exe/I2C_Read_Accel.elf elf32-littlearm)
 LOAD linker stubs
 
-.debug_frame    0x0000000000000000      0x570
+.debug_frame    0x0000000000000000      0x594
  .debug_frame   0x0000000000000000       0x40 Output/Debug/Obj/I2C_Read_Accel/system_MKE06Z4.o
  .debug_frame   0x0000000000000040      0x3cc Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT.o
  .debug_frame   0x000000000000040c       0x94 Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT_SES.o
- .debug_frame   0x00000000000004a0       0xd0 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+ .debug_frame   0x00000000000004a0       0xf4 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
 
-.debug_info     0x0000000000000000     0x2b11
+.debug_info     0x0000000000000000     0x2b86
  .debug_info    0x0000000000000000      0x34b Output/Debug/Obj/I2C_Read_Accel/system_MKE06Z4.o
  .debug_info    0x000000000000034b     0x14ad Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT.o
  .debug_info    0x00000000000017f8      0x87a Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT_SES.o
  .debug_info    0x0000000000002072       0x22 Output/Debug/Obj/I2C_Read_Accel/thumb_crt0.o
  .debug_info    0x0000000000002094       0x26 Output/Debug/Obj/I2C_Read_Accel/Kinetis_KE_Startup.o
  .debug_info    0x00000000000020ba       0x26 Output/Debug/Obj/I2C_Read_Accel/MKE06Z4_Vectors.o
- .debug_info    0x00000000000020e0      0xa31 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+ .debug_info    0x00000000000020e0      0xaa6 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
 
-.debug_abbrev   0x0000000000000000      0x7ef
+.debug_abbrev   0x0000000000000000      0x80d
  .debug_abbrev  0x0000000000000000      0x12c Output/Debug/Obj/I2C_Read_Accel/system_MKE06Z4.o
  .debug_abbrev  0x000000000000012c      0x267 Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT.o
  .debug_abbrev  0x0000000000000393      0x1db Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT_SES.o
  .debug_abbrev  0x000000000000056e       0x12 Output/Debug/Obj/I2C_Read_Accel/thumb_crt0.o
  .debug_abbrev  0x0000000000000580       0x14 Output/Debug/Obj/I2C_Read_Accel/Kinetis_KE_Startup.o
  .debug_abbrev  0x0000000000000594       0x14 Output/Debug/Obj/I2C_Read_Accel/MKE06Z4_Vectors.o
- .debug_abbrev  0x00000000000005a8      0x247 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+ .debug_abbrev  0x00000000000005a8      0x265 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
 
 .debug_pubnames
-                0x0000000000000000      0x4f5
+                0x0000000000000000      0x503
  .debug_pubnames
                 0x0000000000000000       0x4f Output/Debug/Obj/I2C_Read_Accel/system_MKE06Z4.o
  .debug_pubnames
@@ -2899,7 +2902,7 @@ LOAD linker stubs
  .debug_pubnames
                 0x000000000000042b       0x42 Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT_SES.o
  .debug_pubnames
-                0x000000000000046d       0x88 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+                0x000000000000046d       0x96 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
 
 .debug_pubtypes
                 0x0000000000000000      0x5ef
@@ -2912,7 +2915,7 @@ LOAD linker stubs
  .debug_pubtypes
                 0x0000000000000430      0x1bf Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
 
-.debug_aranges  0x0000000000000000      0x288
+.debug_aranges  0x0000000000000000      0x290
  .debug_aranges
                 0x0000000000000000       0x28 Output/Debug/Obj/I2C_Read_Accel/system_MKE06Z4.o
  .debug_aranges
@@ -2926,14 +2929,14 @@ LOAD linker stubs
  .debug_aranges
                 0x0000000000000218       0x20 Output/Debug/Obj/I2C_Read_Accel/MKE06Z4_Vectors.o
  .debug_aranges
-                0x0000000000000238       0x50 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+                0x0000000000000238       0x58 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
 
-.debug_ranges   0x0000000000000000      0x200
+.debug_ranges   0x0000000000000000      0x208
  .debug_ranges  0x0000000000000000       0x18 Output/Debug/Obj/I2C_Read_Accel/system_MKE06Z4.o
  .debug_ranges  0x0000000000000018      0x100 Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT.o
  .debug_ranges  0x0000000000000118       0x28 Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT_SES.o
  .debug_ranges  0x0000000000000140       0x80 Output/Debug/Obj/I2C_Read_Accel/thumb_crt0.o
- .debug_ranges  0x00000000000001c0       0x40 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+ .debug_ranges  0x00000000000001c0       0x48 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
 
 .debug_macro    0x0000000000000000     0x5b9b
  .debug_macro   0x0000000000000000       0x7f Output/Debug/Obj/I2C_Read_Accel/system_MKE06Z4.o
@@ -2958,16 +2961,16 @@ LOAD linker stubs
  .debug_macro   0x0000000000005af0       0x33 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
  .debug_macro   0x0000000000005b23       0x78 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
 
-.debug_line     0x0000000000000000     0x1564
+.debug_line     0x0000000000000000     0x1566
  .debug_line    0x0000000000000000      0x31d Output/Debug/Obj/I2C_Read_Accel/system_MKE06Z4.o
  .debug_line    0x000000000000031d      0x919 Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT.o
  .debug_line    0x0000000000000c36      0x19f Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT_SES.o
  .debug_line    0x0000000000000dd5      0x20a Output/Debug/Obj/I2C_Read_Accel/thumb_crt0.o
  .debug_line    0x0000000000000fdf       0xb9 Output/Debug/Obj/I2C_Read_Accel/Kinetis_KE_Startup.o
  .debug_line    0x0000000000001098       0xc1 Output/Debug/Obj/I2C_Read_Accel/MKE06Z4_Vectors.o
- .debug_line    0x0000000000001159      0x40b Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+ .debug_line    0x0000000000001159      0x40d Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
 
-.debug_str      0x0000000000000000    0x1bc44
+.debug_str      0x0000000000000000    0x1bc62
  .debug_str     0x0000000000000000    0x1a08a Output/Debug/Obj/I2C_Read_Accel/system_MKE06Z4.o
                                       0x1a36d (size before relaxing)
  .debug_str     0x000000000001a08a     0x16b0 Output/Debug/Obj/I2C_Read_Accel/SEGGER_RTT.o
@@ -2980,8 +2983,8 @@ LOAD linker stubs
                                          0xcd (size before relaxing)
  .debug_str     0x000000000001b9cd       0x70 Output/Debug/Obj/I2C_Read_Accel/MKE06Z4_Vectors.o
                                          0xca (size before relaxing)
- .debug_str     0x000000000001ba3d      0x207 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
-                                      0x1ac01 (size before relaxing)
+ .debug_str     0x000000000001ba3d      0x225 Output/Debug/Obj/I2C_Read_Accel/i2c_read_accel.o
+                                      0x1ac1f (size before relaxing)
 
 .comment        0x0000000000000000       0x24
  .comment       0x0000000000000000       0x24 Output/Debug/Obj/I2C_Read_Accel/system_MKE06Z4.o

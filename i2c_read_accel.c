@@ -10,7 +10,7 @@
 #include <stdio.h>
 
 // MMA8451Q I2C Address
-#define ValEL_I2C_ADDR 0x1D
+#define ACCEL_I2C_ADDR 0x1D
 
 // MMA8451Q Register Addresses
 #define REG_WHO_AM_I 0x0D // Default WHO_AM_I value is 0x1A
@@ -24,7 +24,7 @@
 #define REG_CTRL_1 0x2A
 
 // Timing
-#define WAIT_TIME 10000
+#define WAIT_TIME 2000
 
 // Local function prototypes
 void UARTInitialize();
@@ -34,6 +34,8 @@ void I2CInitialize();
 void I2CWait();
 void writeRegister(uint8_t slaveAddr, uint8_t regAddr, uint8_t data);
 static uint8_t readRegister(uint8_t slaveAddr, uint8_t regAddr);
+
+int readAccel(int axis);
 
 // Main function
 int main() {
@@ -53,15 +55,19 @@ int main() {
 
   UARTInitialize();
 
-  sendString("X, Y, Z\r\n");
+  sendString("X Y Z\n");
 
   I2CInitialize();
 
-  uint8_t whoAmI = readRegister(ValEL_I2C_ADDR, REG_WHO_AM_I);
+  uint8_t whoAmI = readRegister(ACCEL_I2C_ADDR, REG_WHO_AM_I);
 
   printf("Who Am I: 0x%X\n", whoAmI);
-
-  writeRegister(ValEL_I2C_ADDR, REG_CTRL_1, 0x01);
+  
+  // Set range to +/- 4g
+  writeRegister(ACCEL_I2C_ADDR, REG_XYZ_DATA_CFG, 0x01);
+  
+  // Activate accelerometer
+  writeRegister(ACCEL_I2C_ADDR, REG_CTRL_1, 0x01);
 
   for (;;) {
     counter++;
@@ -69,37 +75,21 @@ int main() {
     if (counter == WAIT_TIME) {
       counter = 0;
 
-      xVal = readRegister(ValEL_I2C_ADDR, REG_OUT_X_MSB);
-      xVal = xVal << 6;
-      xVal |= readRegister(ValEL_I2C_ADDR, REG_OUT_X_LSB) >> 2;
+      xVal = readAccel(0);
+      yVal = readAccel(1);
+      zVal = readAccel(2);
 
-      yVal = readRegister(ValEL_I2C_ADDR, REG_OUT_Y_MSB);
-      yVal = yVal << 6;
-      yVal |= readRegister(ValEL_I2C_ADDR, REG_OUT_Y_LSB) >> 2;
-
-      zVal = readRegister(ValEL_I2C_ADDR, REG_OUT_Z_MSB);
-      zVal = zVal << 6;
-      zVal |= readRegister(ValEL_I2C_ADDR, REG_OUT_Z_LSB) >> 2;
-
-      if (xVal >> 13 == 1) {
-        xVal = -(8192 - (xVal & 0x1FFF));
-      }
-
-      if (yVal >> 13 == 1) {
-        yVal = -(8192 - (yVal & 0x1FFF));
-      }
-
-      if (zVal >> 13 == 1) {
-        zVal = -(8192 - (zVal & 0x1FFF));
-      }
-
-      sprintf(xStr, "%d, ", xVal);
-      sprintf(yStr, "%d, ", yVal);
-      sprintf(zStr, "%d\r\n", zVal);
+      sprintf(xStr, "%d ", xVal);
+      sprintf(yStr, "%d ", yVal);
+      sprintf(zStr, "%d\n", zVal);
 
       sendString(xStr);
       sendString(yStr);
       sendString(zStr);
+
+      printf(xStr);
+      printf(yStr);
+      printf(zStr);
     }
   }
 
@@ -114,7 +104,7 @@ void UARTInitialize() {
   SIM_SCGC |= SIM_SCGC_UART1_MASK;
 
   // Set baud rate to 9600
-  int BR = 156; // Baud = 24MHz / (16 * BR)
+  int BR = 13; // Baud = 24MHz / (16 * BR)
   UART1_BDL = BR & 0xFF;
   UART1_BDH = (BR >> 8) & 0x1F;
 
@@ -233,4 +223,43 @@ uint8_t readRegister(uint8_t slaveAddr, uint8_t regAddr) {
   I2C0_C1 &= ~I2C_C1_TXAK_MASK;
 
   return result;
+}
+
+//------------------------- Accelerometer Functions -------------------------//
+
+int readAccel(int axis) {
+  uint8_t lsbAddr;
+  uint8_t msbAddr;
+  uint8_t lsb;
+  uint8_t msb;
+  int val;
+
+  switch (axis) {
+    case 0:
+      lsbAddr = REG_OUT_X_LSB;
+      msbAddr = REG_OUT_X_MSB;
+      break;
+    case 1:
+      lsbAddr = REG_OUT_Y_LSB;
+      msbAddr = REG_OUT_Y_MSB;
+      break;
+    case 2:
+      lsbAddr = REG_OUT_Z_LSB;
+      msbAddr = REG_OUT_Z_MSB;
+      break;
+    default:
+      lsbAddr = REG_OUT_X_LSB;
+      msbAddr = REG_OUT_X_MSB;
+  }
+
+  msb = readRegister(ACCEL_I2C_ADDR, msbAddr);
+  lsb = readRegister(ACCEL_I2C_ADDR, lsbAddr);
+
+  val = (msb << 6) | (lsb >> 2);
+
+  if ((val >> 13) == 1) {
+    val = -(8192 - (val & 0x1FFF));
+  }
+
+  return val;
 }
