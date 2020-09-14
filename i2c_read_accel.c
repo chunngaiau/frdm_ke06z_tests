@@ -79,9 +79,9 @@ int main() {
       yVal = readAccel(1);
       zVal = readAccel(2);
 
-      sprintf(xStr, "%d ", xVal);
+      sprintf(xStr, "$%d ", xVal);
       sprintf(yStr, "%d ", yVal);
-      sprintf(zStr, "%d\n", zVal);
+      sprintf(zStr, "%d;\n", zVal);
 
       sendString(xStr);
       sendString(yStr);
