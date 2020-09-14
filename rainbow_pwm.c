@@ -40,8 +40,8 @@ int main() {
   FTM2_C4V = 0;
   FTM2_C5V = 0;
 
-  int hue;
-  bool direction;
+  int hue = 0;
+  bool direction = true;
 
   int rVal;
   int gVal;
