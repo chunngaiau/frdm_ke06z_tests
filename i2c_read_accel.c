@@ -1,9 +1,9 @@
 /*
-  This code reads the Valelerometer data from I2C interface and forwards
+  This code reads the Accelerometer data from I2C interface and forwards
   them to the OpenSDA UART Interface
 
   MCU <--UART1--> OpenSDA
-  MCU <--I2C0 --> MMA8451Q Valelerometer
+  MCU <--I2C0 --> MMA8451Q Accelerometer
 */
 
 #include <MKE06Z4.h>
@@ -33,7 +33,7 @@ void sendString(char toSend[]);
 void I2CInitialize();
 void I2CWait();
 void writeRegister(uint8_t slaveAddr, uint8_t regAddr, uint8_t data);
-static uint8_t readRegister(uint8_t slaveAddr, uint8_t regAddr);
+uint8_t readRegister(uint8_t slaveAddr, uint8_t regAddr);
 
 int readAccel(int axis);
 
