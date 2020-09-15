@@ -167,7 +167,7 @@ int main() {
       }
 
       printf("%d, %d, %d\n", xVal, yVal, zVal);
-      sprintf(outStr, "%d %d %d\n", xVal, yVal, zVal);
+      sprintf(outStr, "$%d %d %d;\n", xVal, yVal, zVal);
       sendString(outStr);
 
       FTM2_C3V = abs(xVal);
@@ -300,7 +300,7 @@ void getRegister(uint8_t slaveAddr, uint8_t regAddr, uint8_t *dataPtr) {
   i2cStep = 0;
 
   // Wait a bit before starting
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < 10; i++) {
     __NOP();
   }
 
@@ -334,7 +334,7 @@ void setRegister(uint8_t slaveAddr, uint8_t regAddr, uint8_t data) {
   i2cStep = 0;
 
   // Wait a bit before starting
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < 10; i++) {
     __NOP();
   }
 

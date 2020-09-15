@@ -445,4 +445,66 @@
       <file file_name="adc_read_thermistor.c" />
     </folder>
   </project>
+  <project Name="RTC_Blinky">
+    <configuration
+      Name="Common"
+      Placement="Flash"
+      Target="MKE06Z128xxx4"
+      arm_architecture="v6M"
+      arm_core_type="Cortex-M0+"
+      arm_endian="Little"
+      arm_fp_abi="Soft"
+      arm_fpu_type="None"
+      arm_interwork="No"
+      arm_linker_heap_size="256"
+      arm_linker_process_stack_size="0"
+      arm_linker_stack_size="256"
+      arm_simulator_memory_simulation_parameter="ROM;0x00000000;0x00020000;RAM;0x1FFFF000;0x00004000"
+      arm_target_debug_interface_type="ADIv5"
+      arm_target_device_name="MKE06Z128xxx4"
+      arm_target_interface_type="SWD"
+      c_preprocessor_definitions="NO_FPU_ENABLE;MKE06Z128xxx4;__Kinetis_KE_FAMILY;__KE06_SUBFAMILY;ARM_MATH_CM0PLUS;FLASH_PLACEMENT=1"
+      c_user_include_directories="$(ProjectDir)/CMSIS_4/CMSIS/Include;$(ProjectDir)/Kinetis_KE/CMSIS/Device/Include"
+      debug_register_definition_file="$(ProjectDir)/MKE06Z4_Registers.xml"
+      debug_target_connection="J-Link"
+      gcc_entry_point="Reset_Handler"
+      linker_memory_map_file="$(ProjectDir)/MKE06Z128xxx4_MemoryMap.xml"
+      linker_section_placement_file="$(ProjectDir)/flash_placement_2Flash_1RAM.xml"
+      macros="DeviceHeaderFile=$(PackagesDir)/Kinetis_KE/CMSIS/Device/Include/MKE06Z4.h;DeviceLibraryIdentifier=M0l;DeviceSystemFile=$(PackagesDir)/Kinetis_KE/CMSIS/Device/Source/system_MKE06Z4.c;DeviceVectorsFile=$(PackagesDir)/Kinetis_KE/Source/MKE06Z4_Vectors.s;DeviceFamily=Kinetis_KE;DeviceSubFamily=KE06;Target=MKE06Z128xxx4;Placement=Flash"
+      package_dependencies="Kinetis_KE"
+      project_directory=""
+      project_type="Executable"
+      target_reset_script="Reset();"
+      target_trace_initialize_script="EnableTrace(&quot;$(TraceInterfaceType)&quot;)" />
+    <folder Name="CMSIS Files">
+      <file file_name="Kinetis_KE/CMSIS/Device/Include/MKE06Z4.h" />
+      <file file_name="Kinetis_KE/CMSIS/Device/Source/system_MKE06Z4.c">
+        <configuration
+          Name="Common"
+          default_code_section=".init"
+          default_const_section=".init_rodata" />
+      </file>
+    </folder>
+    <folder Name="RTT Files">
+      <file file_name="SEGGER_RTT.c" />
+      <file file_name="SEGGER_RTT.h" />
+      <file file_name="SEGGER_RTT_Conf.h" />
+      <file file_name="SEGGER_RTT_SES.c" />
+    </folder>
+    <folder Name="Script Files">
+      <file file_name="Kinetis_KE/Scripts/Kinetis_KE_Target.js">
+        <configuration Name="Common" file_type="Reset Script" />
+      </file>
+    </folder>
+    <folder Name="System Files">
+      <file file_name="thumb_crt0.s" />
+      <file file_name="Kinetis_KE/Source/Kinetis_KE_Startup.s" />
+      <file file_name="Kinetis_KE/Source/MKE06Z4_Vectors.s">
+        <configuration Name="Common" file_type="Assembly" />
+      </file>
+    </folder>
+    <folder Name="Source Files">
+      <file file_name="rtc_blinky.c" />
+    </folder>
+  </project>
 </solution>
