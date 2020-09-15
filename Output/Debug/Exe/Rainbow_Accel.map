@@ -172,7 +172,6 @@ Discarded input sections
  .text          0x0000000000000000        0x0 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
  .data          0x0000000000000000        0x0 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
  .bss           0x0000000000000000        0x0 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
- .debug_macro   0x0000000000000000      0xaae Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
  .debug_macro   0x0000000000000000      0x1a3 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
  .debug_macro   0x0000000000000000       0x3a Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
  .debug_macro   0x0000000000000000       0x26 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
@@ -2965,7 +2964,7 @@ LOAD linker stubs
  .debug_ranges  0x0000000000000140       0x80 Output/Debug/Obj/Rainbow_Accel/thumb_crt0.o
  .debug_ranges  0x00000000000001c0       0x48 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
 
-.debug_macro    0x0000000000000000     0x5bfd
+.debug_macro    0x0000000000000000     0x66b1
  .debug_macro   0x0000000000000000       0x7f Output/Debug/Obj/Rainbow_Accel/system_MKE06Z4.o
  .debug_macro   0x000000000000007f      0xaae Output/Debug/Obj/Rainbow_Accel/system_MKE06Z4.o
  .debug_macro   0x0000000000000b2d      0x1a3 Output/Debug/Obj/Rainbow_Accel/system_MKE06Z4.o
@@ -2984,11 +2983,12 @@ LOAD linker stubs
  .debug_macro   0x000000000000599f       0x10 Output/Debug/Obj/Rainbow_Accel/SEGGER_RTT_SES.o
  .debug_macro   0x00000000000059af       0x6b Output/Debug/Obj/Rainbow_Accel/SEGGER_RTT_SES.o
  .debug_macro   0x0000000000005a1a       0xd8 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
- .debug_macro   0x0000000000005af2       0x16 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
- .debug_macro   0x0000000000005b08       0x33 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
- .debug_macro   0x0000000000005b3b       0x78 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
- .debug_macro   0x0000000000005bb3       0x28 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
- .debug_macro   0x0000000000005bdb       0x22 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
+ .debug_macro   0x0000000000005af2      0xab4 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
+ .debug_macro   0x00000000000065a6       0x16 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
+ .debug_macro   0x00000000000065bc       0x33 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
+ .debug_macro   0x00000000000065ef       0x78 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
+ .debug_macro   0x0000000000006667       0x28 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
+ .debug_macro   0x000000000000668f       0x22 Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
 
 .debug_line     0x0000000000000000     0x16e3
  .debug_line    0x0000000000000000      0x31d Output/Debug/Obj/Rainbow_Accel/system_MKE06Z4.o
@@ -2999,7 +2999,7 @@ LOAD linker stubs
  .debug_line    0x0000000000001098       0xc1 Output/Debug/Obj/Rainbow_Accel/MKE06Z4_Vectors.o
  .debug_line    0x0000000000001159      0x58a Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
 
-.debug_str      0x0000000000000000    0x1bfa7
+.debug_str      0x0000000000000000    0x1bfb7
  .debug_str     0x0000000000000000    0x1a08a Output/Debug/Obj/Rainbow_Accel/system_MKE06Z4.o
                                       0x1a36d (size before relaxing)
  .debug_str     0x000000000001a08a     0x16b0 Output/Debug/Obj/Rainbow_Accel/SEGGER_RTT.o
@@ -3012,8 +3012,8 @@ LOAD linker stubs
                                          0xcd (size before relaxing)
  .debug_str     0x000000000001b9cd       0x70 Output/Debug/Obj/Rainbow_Accel/MKE06Z4_Vectors.o
                                          0xca (size before relaxing)
- .debug_str     0x000000000001ba3d      0x56a Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
-                                      0x1affa (size before relaxing)
+ .debug_str     0x000000000001ba3d      0x57a Output/Debug/Obj/Rainbow_Accel/rainbow_accel.o
+                                      0x1b00a (size before relaxing)
 
 .comment        0x0000000000000000       0x24
  .comment       0x0000000000000000       0x24 Output/Debug/Obj/Rainbow_Accel/system_MKE06Z4.o
