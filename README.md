@@ -11,6 +11,7 @@ To run, open the *.em file in Segger Embedded Studio
 - **I2C_Read_Accel**: Bare metal (register) code to read the onboard MMA8154Q accelerometer using a polling method (i.e. the main loop is blocked while reading or writing). Has issues when sampling rate is high.
 - **I2C_Read_Accel_Async**: Bare metal (register) code to read the onboard MMA8154Q accelerometer. Uses interrupts to read the data asynchronously (i.e. fress the main loop while reading or writing).
 - **Rainbow_Accel**: Combines **Rainbow** with **I2C_Read_Accel_Async** to change the colour of the RGB led based on orientation and acceleration.
+- **ADC_Read_Thermistor**: Code to read the thermistor's voltage using the onboard ADC module.
 
 ## Using the Segger J-Link OpenSDA booloader
 
